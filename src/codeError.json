@@ -1,0 +1,6 @@
+{
+    "COMMAND_NOT_VALID" : {
+        "code" : 1,
+        "contentError" : ":x: Command not valid"
+    }
+}
