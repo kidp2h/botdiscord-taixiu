@@ -1,6 +1,6 @@
 import Mongoose, {Document} from "mongoose"
-import {IUser} from "./Interfaces"
-import moment from "moment"
+import {IUser} from "../Interfaces"
+import moment, { relativeTimeThreshold } from "moment"
 const Schema = Mongoose.Schema;
 
 const UserSchema : Mongoose.Schema = new Schema ({
@@ -8,7 +8,9 @@ const UserSchema : Mongoose.Schema = new Schema ({
     idDiscord : String,
     idGuild : String,
     money : {type : Number,default : 0},
-    lastDaily : {type : Date, default : null}
+    lastDaily : {type : Date, default : null},
+    lastHourly : {type : Date, default : null},
+    lastWeekly : {type : Date, default : null}
     
 },{timestamps : true})
 
@@ -40,8 +42,17 @@ export default new class UserModel {
         return this._model.create({idDiscord : _idDiscord,idGuild : _idGuild});
     }
 
-    public receiveDailyGift(_idDiscord : IUser["idDiscord"], newMoney : number) : Promise<IUser> {
-        return this._model.updateOne({idDiscord : _idDiscord},{money : newMoney,lastDaily : moment()});
+    public receiveGift(typeGift,_idDiscord : IUser["idDiscord"], _idGuild: IUser["idGuild"], newMoney : number) : Promise<IUser> {
+        if(typeGift == "daily"){
+            return this._model.updateOne({idDiscord : _idDiscord, idGuild : _idGuild},{money : newMoney,lastDaily : moment()});
+        }else if(typeGift == "hourly"){
+            return this._model.updateOne({idDiscord : _idDiscord, idGuild : _idGuild},{money : newMoney,lastHourly : moment()});
+        }else if(typeGift == "weekly"){
+            return this._model.updateOne({idDiscord : _idDiscord, idGuild : _idGuild},{money : newMoney,lastWeekly : moment()});
+        }
+    }
+
+    public setMoney(_idDiscord : IUser["idDiscord"], _idGuild : IUser["idGuild"], amount : number) : void {
+        return this._model.updateOne({idDiscord : _idDiscord, idGuild : _idGuild},{money : amount}).exec();
     }
 }
-

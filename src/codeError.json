@@ -2,5 +2,23 @@
     "COMMAND_NOT_VALID" : {
         "code" : 1,
         "contentError" : ":x: Command not valid"
+    },
+    "FEW_ARG" : {
+        "code" : 2,
+        "contentError" : ":x: Too few argument expected, enter `tx!help` to see detail this command"
+    },
+    "MANY_ARG" : {
+        "code" : 3,
+        "contentError" : ":x: Too many argument expected, enter `tx!help` to see detail this command"
+    },
+    "BET_MIN_MONEY" :{
+        "code" : 4,
+        "contentError" : ":x: Min money to bet is 500 money"
+    },
+    "ARG_NOT_VALID" : {
+        "code" : 5,
+        "contentError" : ":x: Argument is not valid, argument is only `tai` or `xiu`. Enter `tx!help` to see detail"
     }
+
+    
 }
