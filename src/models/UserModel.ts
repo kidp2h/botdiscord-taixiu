@@ -1,7 +1,9 @@
-import Mongoose, {Document} from "mongoose"
-import {IUser} from "../Interfaces"
-import moment, { relativeTimeThreshold } from "moment"
+import Mongoose from "mongoose"
+import moment from "moment"
 const Schema = Mongoose.Schema;
+
+import {IUser} from "../Interfaces"
+
 
 const UserSchema : Mongoose.Schema = new Schema ({
     id : Mongoose.Types.ObjectId,
