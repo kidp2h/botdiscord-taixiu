@@ -1,10 +1,10 @@
-import codeError from "./codeError.json"
-import {Client, Guild, GuildMember, UserResolvable} from "discord.js"
+import moment from "moment";
+require("dotenv").config();
+
+import {Client} from "discord.js"
 import Model from "./models/index"
 import _ from "lodash"
-import moment from "moment";
 import { IPlayer } from "./Interfaces";
-require("dotenv").config();
 
 export default {
     getArgument : (message)  : Array<String> => {

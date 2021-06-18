@@ -1,13 +1,13 @@
-import Discord , {Message, MessageEmbed, Client, User} from "discord.js";
-import {ICommands,IUser, IPlayer, ISession} from "../Interfaces";
+import Discord , {Message, MessageEmbed, Client} from "discord.js";
+import moment from "moment"
+import _ from "lodash"
+require("dotenv").config();
 
 import BaseCommandsController from "./BaseController/BaseCommands"
+import {ICommands,IUser, IPlayer, ISession} from "../Interfaces";
 import codeError from "../codeError.json"
-import moment from "moment"
 import Model from "../models/index";
-import _ from "lodash"
 import Helpers from "../Helpers"
-require("dotenv").config();
 
 /**
  * @param client  @type Discord.Client;
@@ -19,7 +19,6 @@ export default class CommandsController extends BaseCommandsController{
     private embed : MessageEmbed;
 
     constructor(client : Client, message : Message, listCommands : Array<ICommands>){
-
         super(client);
         this.embed = new Discord.MessageEmbed;
         //init method
@@ -127,7 +126,6 @@ export default class CommandsController extends BaseCommandsController{
         } catch (error) {
             throw new Error(error);
         }
-        
     }
 
     public async weekly(message : Message, embed : MessageEmbed) : Promise<void> {
@@ -173,7 +171,6 @@ export default class CommandsController extends BaseCommandsController{
         } catch (error) {
             throw new Error(error);
         }
-        
     }
     public help(message : Message,listCommands : Array<ICommands>, embed : MessageEmbed ) : void {
         if(message.content.includes("tx!help") && message.content.slice(0,7) =="tx!help"){
@@ -244,12 +241,9 @@ export default class CommandsController extends BaseCommandsController{
                     await Model.SessionModel.initSession(idGuild, idChannel, PlayerInWave, resultWin);
                     Helpers.noticeSuccessBet(message, embed, PlayerInWave);
                 }
-                
             }
         }
     }
-
-    
 
     public developer(message : Message, embed : MessageEmbed){
         if(message.content == "tx!dev"){
@@ -305,7 +299,6 @@ export default class CommandsController extends BaseCommandsController{
                         .setFooter("TaiXiu", process.env.B_AVATAR)
                     message.channel.send(embed);
                 }
-                
             }
         }
     }
@@ -338,7 +331,6 @@ export default class CommandsController extends BaseCommandsController{
                     .setFooter("TaiXiu", process.env.B_AVATAR)
                 message.channel.send(embed);
             }
-            
         }
     }
 }

@@ -1,23 +1,23 @@
 //import Helpers from "./helpers";
 import Discord, { Guild, Message, TextChannel}  from "discord.js";
+import moment from "moment"
+require("dotenv").config();
+
 import ConnectDatabase from "../ConnectDatabase";
 import InitializeCommands from "../index"
 import {BaseController} from "./BaseController/BaseController";
 import { listCommands } from "../listCommands";
 import Model from "../models/index"
-import moment from "moment"
 import {IPlayer} from "../Interfaces"
-require("dotenv").config();
+
 /**
  * @extends BaseController
  */
 export default new class MainController extends BaseController{
-    private _guild : Guild;
     constructor(){
         super();
         this._clientTaiXiu = new Discord.Client();
         new ConnectDatabase;
-
         this.App();
     }
 
@@ -25,7 +25,6 @@ export default new class MainController extends BaseController{
         const TaiXiu = this._clientTaiXiu
 
         TaiXiu.on("message", (message : Message) : void => {
-            //console.log(message);
             new InitializeCommands(TaiXiu, message, listCommands);
         })
         TaiXiu.on("ready",() : void => {
@@ -57,9 +56,7 @@ export default new class MainController extends BaseController{
                             }
                         }
                     }
-                
                 }
-                
             },1000)
         })
         TaiXiu.login(process.env.TOKEN);
